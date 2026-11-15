@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PharmaChain - Verify your medicine</title>
+<link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+<header>
+<h1>Pharma<span>Chain</span> &middot; Verify your medicine</h1>
+<span id="status">checking...</span>
+</header>
+<main>
+<nav class="tabs">
+<button class="active" data-tab="verify">Verify</button>
+<button data-tab="manage">Manage batches</button>
+<button data-tab="photo">Check packaging photo</button>
+</nav>
+<section id="tab-verify" class="panel">
+<form id="verify-form" class="row">
+<div>
+<label for="batch-input">Batch ID (or scan the QR code on the pack)</label>
+<input id="batch-input" placeholder="e.g. VAX-001" autocomplete="off" />
+</div>
+<button class="primary" type="submit">Verify</button>
+<button class="ghost" type="button" id="scan-btn">Scan QR</button>
+</form>
+<div id="reader" hidden></div>
+<p id="scan-msg" class="muted"></p>
+<div id="verify-result"></div>
+</section>
+<section id="tab-manage" class="panel" hidden>
+<div class="card">
+<h3>1. Register a new batch</h3>
+<form id="register-form">
+<label for="reg-id">Batch ID</label
+><input
+id="reg-id"
+required
+pattern="[A-Za-z0-9_\-]+"
+title="Letters, numbers, hyphens and underscores only"
+/>
+<label for="reg-drug">Drug name</label
+><input id="reg-drug" value="Vaccine X" required /> <label for="reg-loc">Location</label
+><input id="reg-loc" value="Factory, Kolkata" required />
+<p><button class="primary" type="submit">Register on blockchain</button></p>
+</form>
+<div id="register-result"></div>
+</div>
+<div class="card">
+<h3>2. Transfer custody</h3>
+<form id="transfer-form">
+<label for="tr-id">Batch ID</label><input id="tr-id" required />
+<label for="tr-to">New holder</label>
+<select id="tr-to">
+<option value="distributor">Distributor</option>
+<option value="pharmacy">Pharmacy</option>
+</select>
+<label for="tr-loc">Location</label
+><input id="tr-loc" value="Warehouse, Howrah" required />
+<p><button class="primary" type="submit">Transfer</button></p>
+</form>
+<div id="transfer-result"></div>
+</div>
+<div class="card demo">
+<h3>Demo control: simulate a cold-chain breach</h3>
+<p class="muted">
+For the live demo only. Normally Member 3's monitor does this automatically.
+</p>
+<form id="breach-form" class="row">
+<div><label for="br-id">Batch ID</label><input id="br-id" required /></div>
+<button class="primary" type="submit">Simulate breach</button>
+</form>
+<div id="breach-result"></div>
+</div>
+</section>
+<section id="tab-photo" class="panel" hidden>
+<div class="card">
+<h3>Check a packaging photo</h3>
+<p class="muted">
+The photo is sent to the AI model. A counterfeit result flags the batch on the
+blockchain.
+</p>
+<form id="photo-form">
+<label for="ph-id">Batch ID</label><input id="ph-id" required />
+<label for="ph-file">Photo of the packaging</label
+><input id="ph-file" type="file" accept="image/*" required />
+<img id="ph-preview" class="preview" alt="" hidden />
+<p><button class="primary" type="submit">Check photo</button></p>
+</form>
+<div id="photo-result"></div>
+</div>
+</section>
+</main>
+<script src="/config.js"></script>
+<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+<script src="/static/app.js"></script>
+</body>
+</html>
