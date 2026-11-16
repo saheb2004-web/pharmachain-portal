@@ -1,4 +1,4 @@
-const API = window.PHARMA_API;
+﻿const API = window.PHARMA_API;
 const $ = (id) => document.getElementById(id);
 function el(tag, props, ...children) {
 const e = document.createElement(tag);
@@ -321,12 +321,12 @@ return;
 }
 const r = data.result;
 const pct = Math.round((r.confidence || 0) * 100);
-const fake = r.label === "counterfeit";
+const fake = (r.label || r.prediction) === "counterfeit";
 message(
 out,
 !fake,
 "Model says: " +
-r.label.toUpperCase() +
+(r.label || r.prediction).toUpperCase() +
 " (" +
 pct +
 "% confident). " +
