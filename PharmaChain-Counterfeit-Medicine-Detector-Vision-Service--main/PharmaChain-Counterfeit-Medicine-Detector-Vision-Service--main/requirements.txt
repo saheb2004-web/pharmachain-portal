@@ -1,7 +1,0 @@
-torch
-torchvision
-pillow
-numpy
-scikit-learn
-flask
-requests
